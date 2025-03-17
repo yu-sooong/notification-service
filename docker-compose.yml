@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+    app:
+        build: .
+        ports:
+            - "3000:3000"
+        environment:
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_USER: root
+            DB_PASSWORD: root
+            DB_NAME: notification_service
+            REDIS_HOST: redis
+            RABBITMQ_URL: amqp://rabbitmq
+        depends_on:
+            - mysql
+            - redis
+            - rabbitmq
+
+    mysql:
+        image: mysql:8
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: notification_service
+        ports:
+            - "33060:3306"
+
+    redis:
+        image: redis:6
+        ports:
+            - "6379:6379"
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+            - "5672:5672"
+            - "15672:15672"
