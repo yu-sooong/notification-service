@@ -16,6 +16,7 @@ describe('NotificationService', () => {
   };
   const mockCacheProxy = {
     getRecentNotifications: jest.fn(),
+    purgeNotificationCache: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -43,6 +44,7 @@ describe('NotificationService', () => {
       status: NotificationStatus.PENDING,
     });
     expect(mockRepo.save).toBeCalled();
+    expect(mockCacheProxy.purgeNotificationCache).toBeCalled();
     expect(mockClientProxy.emit).toBeCalledWith(
       'notification_created',
       expect.objectContaining({ user_id: 1, channel: 'email' }),

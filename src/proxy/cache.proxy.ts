@@ -49,4 +49,8 @@ export class CacheProxy {
 
     return notifications;
   }
+
+  async purgeNotificationCache(user_id: number): Promise<void> {
+    await this.redisClient.del('notifications:' + user_id);
+  }
 }

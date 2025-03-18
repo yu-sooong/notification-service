@@ -30,8 +30,3 @@ jobs:
 
       - name: 🔹 Run Jest Tests with Coverage
         run: npm run test:cov
-        
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}

@@ -25,6 +25,9 @@ export class NotificationService {
     });
     await this.notificationRepo.save(notification);
 
+    // purge 快取
+    await this.cacheProxy.purgeNotificationCache(user_id);
+
     // 發佈到 MQ
     this.rabbitClient.emit('notification_created', {
       id: notification.id,
