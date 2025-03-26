@@ -43,7 +43,7 @@ export class CacheProxy {
 
     await this.redisClient.setex(
       cacheKey,
-      this.CACHE_TTL,
+      this.CACHE_TTL + Math.floor(Math.random() * 10), // 防雪崩
       JSON.stringify(notifications),
     );
 

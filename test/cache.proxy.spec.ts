@@ -38,6 +38,7 @@ describe('CacheProxy', () => {
   });
 
   it('should fetch from DB and cache when cache miss', async () => {
+    jest.spyOn(Math, 'random').mockReturnValue(0); // ⬅️ 固定讓 TTL 是 120
     mockRedis.get.mockResolvedValue(null);
     mockRepo.find.mockResolvedValue([{ id: 1, message: 'db data' }]);
 
